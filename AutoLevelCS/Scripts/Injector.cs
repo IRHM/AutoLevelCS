@@ -31,6 +31,10 @@ namespace AutoLevelCS.Scripts
 		[DllImport("kernel32.dll", SetLastError = true)]
 		private static extern IntPtr CreateRemoteThread(IntPtr hProcess, IntPtr lpThreadAttribute, IntPtr dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);
 
+		private static readonly IntPtr INTPTR_ZERO = (IntPtr)0;
+		private uint PID;
+		private Process[] _procs;
+
 		private bool InjectModule(uint pid, string dllpath)
 		{
 			Console.WriteLine($"Injecting: {dllpath}");
@@ -105,11 +109,5 @@ namespace AutoLevelCS.Scripts
 				Console.WriteLine("Failed Whilst Injecting");
 			}
 		}
-
-		private static readonly IntPtr INTPTR_ZERO = (IntPtr)0;
-
-		private uint PID;
-
-		private Process[] _procs;
 	}
 }

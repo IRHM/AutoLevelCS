@@ -31,6 +31,8 @@ namespace AutoLevelCS.Scripts
 		[DllImport("kernel32.dll", SetLastError = true)]
 		private static extern IntPtr CreateRemoteThread(IntPtr hProcess, IntPtr lpThreadAttribute, IntPtr dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);
 
+		private string processName = "csgo";
+		private string dllPath = "D:\\Osiris\\Release\\Osiris.dll";
 		private static readonly IntPtr INTPTR_ZERO = (IntPtr)0;
 		private uint PID;
 		private Process[] _procs;
@@ -79,7 +81,7 @@ namespace AutoLevelCS.Scripts
 
 			for (int i = 0; i < _procs.Length; i++)
 			{
-				if (_procs[i].ProcessName == "csgo")
+				if (_procs[i].ProcessName == processName)
 				{
 					PID = (uint)_procs[i].Id;
 					return true;
@@ -100,7 +102,7 @@ namespace AutoLevelCS.Scripts
 				Console.WriteLine("Couldn't find CSGO PID");
 			}
 			
-			if (InjectModule(PID, "D:\\Osiris\\Release\\Osiris.dll") == true)
+			if (InjectModule(PID, dllPath) == true)
 			{
 				Console.WriteLine("Done Injecting");
 			}

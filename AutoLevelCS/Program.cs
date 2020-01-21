@@ -8,12 +8,16 @@ namespace AutoLevelCS
     {
         static void Main(string[] args)
         {
+            // Login to next account
+            OpenGame og = new OpenGame();
+            og.LoginToSteam();
+
             // Get next account
             //Scripts.NextAccount.GetNextAccount();
 
-            Injector inj = new Injector();
-
-            inj.Inject();
+            // Inject Cheats
+            //Injector inj = new Injector();
+            //inj.Inject();
         }
     }
 }

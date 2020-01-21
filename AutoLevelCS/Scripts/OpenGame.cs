@@ -14,13 +14,12 @@ namespace AutoLevelCS.Scripts
             var (username, password) = na.GetNextAccount();
 
             Console.WriteLine($"Logging in on {username}");
+            Console.WriteLine("Opening CSGO...");
 
             // Open Steam and login
             string steamPath = "C:\\Program Files (x86)\\Steam\\Steam.exe";
             string steamArgs = $"-login {username} {password} -applaunch 730 -novid -lv -noaafonts -nojoy -h 480 -w 640 -sw +exec AutoLevel";
             Process.Start("cmd.exe", $"/C start \"Steam\" \"{steamPath}\" {steamArgs}");
-
-            Console.WriteLine("Opening CSGO...");
         }
     }
 }

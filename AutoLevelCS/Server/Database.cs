@@ -33,11 +33,11 @@ namespace AutoLevelCS.Server
 
         private void Connect()
         {
-            server = "server";
-            port = "port";
-            database = "database";
-            dbUsername = "username";
-            dbPassword = "password";
+            server = "192.168.0.10";
+            port = "3306";
+            database = "auto_level";
+            dbUsername = "auto_level_user";
+            dbPassword = "F6he2oGiD1VaQ1xulAW148rA5eFEC7";
 
             conn = new MySqlConnection($"SERVER={server};PORT={port};USERNAME={dbUsername};PASSWORD={dbPassword};DATABASE={database}");
         }

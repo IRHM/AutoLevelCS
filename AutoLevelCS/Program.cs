@@ -12,9 +12,6 @@ namespace AutoLevelCS
             OpenGame og = new OpenGame();
             og.LoginToSteam();
 
-            // Get next account
-            //Scripts.NextAccount.GetNextAccount();
-
             // Inject Cheats
             //Injector inj = new Injector();
             //inj.Inject();

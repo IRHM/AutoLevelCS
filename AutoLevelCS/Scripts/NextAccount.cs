@@ -16,7 +16,7 @@ namespace AutoLevelCS.Scripts
 
     class NextAccount
     {
-        public static void GetNextAccount()
+        public (string username, string password) GetNextAccount()
         {
             AccountInfo ai = new AccountInfo();
             Database db = new Database();
@@ -29,7 +29,8 @@ namespace AutoLevelCS.Scripts
                 ai.password = Item[2].ToString();
             }
 
-            Console.WriteLine($"{ai.username}, {ai.password}");
+            // Return w/ Tuples
+            return (ai.username, ai.password);
         }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Text;
 using MySql.Data.MySqlClient;
 
 namespace AutoLevelCS.Server
@@ -51,15 +49,7 @@ namespace AutoLevelCS.Server
             }
             catch (MySqlException ex)
             {
-                switch (ex.Number)
-                {
-                    case 0:
-                        Console.WriteLine($"{ex} Cannot connect to server.");
-                        break;
-                    case 1045:
-                        Console.WriteLine("Invalid username/password, please try again");
-                        break;
-                }
+                Console.WriteLine($"Ex No:{ex.Number} - Error opening connection to database.");
                 return false;
             }
         }
@@ -93,6 +83,7 @@ namespace AutoLevelCS.Server
             }
             catch(Exception ex)
             {
+                // Error executing query
                 Console.WriteLine(ex);
             }
             finally

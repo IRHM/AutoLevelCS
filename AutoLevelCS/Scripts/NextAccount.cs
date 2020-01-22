@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using AutoLevelCS.Server;
+﻿using AutoLevelCS.Server;
 using System.Data;
 
 namespace AutoLevelCS.Scripts

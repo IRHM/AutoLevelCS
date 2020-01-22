@@ -1,4 +1,5 @@
 ﻿using AutoLevelCS.Server;
+using System;
 using System.Data;
 
 namespace AutoLevelCS.Scripts
@@ -13,6 +14,8 @@ namespace AutoLevelCS.Scripts
     {
         public (string username, string password) GetNextAccount()
         {
+            Console.Write("\rGetting Next Login Details...");
+
             AccountInfo ai = new AccountInfo();
             Database db = new Database();
 
@@ -23,6 +26,8 @@ namespace AutoLevelCS.Scripts
                 ai.username = Item[1].ToString();
                 ai.password = Item[2].ToString();
             }
+
+            Console.Write("\rLogin Details Retrieved\n");
 
             // Return w/ Tuples
             return (ai.username, ai.password);

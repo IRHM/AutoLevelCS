@@ -9,14 +9,12 @@ namespace AutoLevelCS.Scripts
     {
         public void LoginToSteam()
         {
-            Console.WriteLine("Getting Next Login Details...");
-
             // Get next account login info
             NextAccount na = new NextAccount();
             var (username, password) = na.GetNextAccount();
 
             Console.WriteLine($"Logging in on {username}");
-            Console.WriteLine("Opening CSGO...");
+            Console.Write("\n\rOpening CSGO...");
 
             // Open Steam and login
             // Args: support.steampowered.com/kb_article.php?ref=5623-QOSV-5250
@@ -24,8 +22,7 @@ namespace AutoLevelCS.Scripts
             string steamArgs = $"-login {username} {password} -silent -applaunch 730 -dev -novid -lv -noaafonts -nojoy -h 480 -w 640 -sw +exec AutoLevel";
             Process.Start("cmd.exe", $"/C start \"Steam\" \"{steamPath}\" {steamArgs}");
 
-            // 35 secs for csgo to open
-            Thread.Sleep(35000);
+            Console.Write("\rCSGO Opened        \n");
 
             MoveGame mg = new MoveGame();
             mg.Move();
@@ -51,9 +48,14 @@ namespace AutoLevelCS.Scripts
             public int bottom;
         }
 
-        public bool Move()
+        public void Move()
         {
+            bool foundCS = false;
+            int timesTried = 0;
             IntPtr id;
+
+            // Create goto checkpoint
+            checkProcessesAgain:
 
             foreach (Process pList in Process.GetProcesses())
             {
@@ -72,13 +74,49 @@ namespace AutoLevelCS.Scripts
 
                     Console.WriteLine("Moved CSGO Window");
 
-                    return true;
+                    foundCS = true;
                 }
             }
 
-            Console.WriteLine("Couldn't Move CSGO Window");
+            // Restart foreach loop to check for csgo again
+            if (foundCS == false && timesTried < 10)
+            {
+                Console.WriteLine("Couldn't Move CSGO Window");
 
-            return false;
+                // Coundown for 10 seconds
+                Countdown(0, 0, 10);
+
+                Console.Write($"\rTrying Again Now \n");
+
+                timesTried++;
+
+                // Restart foreach loop to search for csgo process
+                goto checkProcessesAgain;
+            }
+        }
+
+        private void Countdown(int h, int m, int s)
+        {
+            float secondsLeft;
+            var stopwatch = new Stopwatch();
+            var startTime = DateTime.UtcNow;
+
+            stopwatch.Start();
+
+            // Create new TimeSpan to subtract stopwatch.Elapsed from
+            TimeSpan remainingTime = new TimeSpan(h, m, s);
+
+            while (DateTime.UtcNow - startTime < remainingTime)
+            {
+                // Subtract stopwatch.Elapsed from TimeSpan to get remaining seconds
+                secondsLeft = remainingTime.Subtract(stopwatch.Elapsed).Seconds;
+
+                // Leave space at end or when counting down..
+                // from higher than 10 the 0 at the end is never overwritten
+                Console.Write($"\rTrying Again In {secondsLeft} "); 
+            }
+
+            stopwatch.Stop();
         }
     }
 }
